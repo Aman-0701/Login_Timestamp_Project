@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 CREATE TABLE users (
     USER_ID INT PRIMARY KEY,
     USER_NAME VARCHAR(20) NOT NULL,
@@ -214,7 +214,27 @@ select cte.login_date,u.USER_NAME,cte.max_score from cte
 left join users u on cte.USER_ID = u.USER_ID;
  
  
--- Rest questions will do tomorrow 
---aman
+-- 6) To identify our best users - Return the users that had a session on every single day snce their first login 
+-- make assumption if needed, return user id
+-- Assuming that that today is 28 june'24, so user should have to login till today from first login date
 
->>>>>>> 0848f4e (Check)
+select user_id, min(cast(login_timestamp as date)) as first_logins_date,
+datediff(day,min(cast(login_timestamp as date)),cast('2024-06-28' as date))+1 as no_of_logins_req,
+count(distinct LOGIN_TIMESTAMP) as no_of_login_days
+from logins 
+group by user_id 
+having count(distinct LOGIN_TIMESTAMP) = datediff(day,min(cast(login_timestamp as date)),cast('2024-06-28' as date))+1
+order by user_id;
+
+-- 7) on what dates there were no login at all? return login_dates
+with cte as
+(select cast(min(login_timestamp) as date) as first_date, cast('2024-06-28' as date) as last_date
+from logins
+UNION ALL
+select dateadd(day,1,first_date),last_date from cte
+where first_date<last_date
+)
+select * from cte 
+where first_date not in 
+(select distinct cast(login_timestamp as date) from logins)
+OPTION(maxrecursion 500)
