@@ -214,6 +214,7 @@ select cte.login_date,u.USER_NAME,cte.max_score from cte
 left join users u on cte.USER_ID = u.USER_ID;
  
  
--- Rest questions will do tomorrow
+-- Rest questions will do tomorrow 
+--t
 
 >>>>>>> 0848f4e (Check)
