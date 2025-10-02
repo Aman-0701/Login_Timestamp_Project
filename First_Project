@@ -211,9 +211,9 @@ row_number() over(PARTITION BY cast(LOGIN_TIMESTAMP as date) order by sum(SESSIO
 from logins
 group by USER_ID, cast(LOGIN_TIMESTAMP as date))
 select cte.login_date,u.USER_NAME,cte.max_score from cte
-left join users u on cte.USER_ID = u.USER_ID
+left join users u on cte.USER_ID = u.USER_ID;
  
  
- --7);
+-- Rest questions will do tomorrow
 
 >>>>>>> 0848f4e (Check)
