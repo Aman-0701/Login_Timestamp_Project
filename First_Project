@@ -214,6 +214,7 @@ select cte.login_date,u.USER_NAME,cte.max_score from cte
 left join users u on cte.USER_ID = u.USER_ID;
  
  
+<<<<<<< HEAD
 -- 6) To identify our best users - Return the users that had a session on every single day snce their first login 
 -- make assumption if needed, return user id
 -- Assuming that that today is 28 june'24, so user should have to login till today from first login date
@@ -238,3 +239,4 @@ select * from cte
 where first_date not in 
 (select distinct cast(login_timestamp as date) from logins)
 OPTION(maxrecursion 500)
+
